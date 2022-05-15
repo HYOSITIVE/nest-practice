@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Res } from '@nestjs/common';
 import { Header } from '@nestjs/common';
+import { Redirect } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -13,6 +14,12 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Redirect('http://naver.com', 301)
+  @Get('/redirect/:id')
+  Redirect(@Param('id') id: string) {
+    return this.usersService.findOne(+id);
   }
 
   @HttpCode(202) // Http Code 임의로 변경 가능 (Res 사용 시 적용 안됨)
@@ -28,7 +35,7 @@ export class UsersController {
 
   @Header('Custom', 'Test Header')
   @Get('/header')
-  findall(@Res() res) {
+  findAllWithCustom(@Res() res) {
     return res.status(200).send('custom header test');
   }
 
