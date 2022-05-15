@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+// eslint-disable-next-line prettier/prettier
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, BadRequestException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Res } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -12,14 +14,22 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @HttpCode(202) // Http Code 임의로 변경 가능 (Res 사용 시 적용 안됨)
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Res() res) {
+    // return this.usersService.findAll();
+    const users = {
+      name: 'Philip',
+      age: 24,
+    };
+    return res.status(200).send(users); // @Res decorator 사용한 경우 res 임의로 설정 가능
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    if (+id < 1) {
+      throw new BadRequestException('id는 0보다 큰 값이어야 합니다.'); // 자동으로 400 에러 반환
+    } else return this.usersService.findOne(+id);
   }
 
   @Patch(':id')
