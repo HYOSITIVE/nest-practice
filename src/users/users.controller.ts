@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Res } from '@nestjs/common';
+import { Header } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -23,6 +24,12 @@ export class UsersController {
       age: 24,
     };
     return res.status(200).send(users); // @Res decorator 사용한 경우 res 임의로 설정 가능
+  }
+
+  @Header('Custom', 'Test Header')
+  @Get('/header')
+  findall(@Res() res) {
+    return res.status(200).send('custom header test');
   }
 
   @Get(':id')
