@@ -16,10 +16,14 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Redirect('http://naver.com', 301)
+  @Redirect('https://blog.hyositive.com', 301)
   @Get('/redirect/:id')
   Redirect(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    if (id && id === '29') {
+      return { url: 'https://blog.hyositive.com/29' };
+    } else {
+      return this.usersService.findOne(+id);
+    }
   }
 
   @HttpCode(202) // Http Code 임의로 변경 가능 (Res 사용 시 적용 안됨)
