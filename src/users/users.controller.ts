@@ -9,7 +9,7 @@ import { UserInfo } from './user-info';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {} // Controller의 생성자에서 Service를 주입 받음. 객체 멤버 변수에 할당해 사용 가능
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<void> {
