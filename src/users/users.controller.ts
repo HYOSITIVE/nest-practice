@@ -1,21 +1,37 @@
 // eslint-disable-next-line prettier/prettier
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, BadRequestException, Res, Header, Redirect, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Res } from '@nestjs/common';
-import { Header } from '@nestjs/common';
-import { Redirect } from '@nestjs/common';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { UserLoginDto } from './dto/user-login.dto';
+import { UserInfo } from './user-info';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    const { name, email } = createUserDto;
-    return `유저를 생성했습니다. 이름: ${name}, 이메일: ${email}`;
-    // return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<void> {
+    console.log(createUserDto);
+  }
+
+  @Post('/email-verify')
+  async verifyEmail(@Query() dto: VerifyEmailDto): Promise<string> {
+    console.log(dto);
+    return;
+  }
+
+  @Post('/login')
+  async login(@Body() dto: UserLoginDto): Promise<string> {
+    console.log(dto);
+    return;
+  }
+
+  @Get('/:id')
+  async getUserInfo(@Param('id') userId: string): Promise<UserInfo> {
+    console.log(userId);
+    return;
   }
 
   @Redirect('https://blog.hyositive.com', 301)
