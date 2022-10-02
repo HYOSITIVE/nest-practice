@@ -13,7 +13,9 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    const { name, email } = createUserDto;
+    return `유저를 생성했습니다. 이름: ${name}, 이메일: ${email}`;
+    // return this.usersService.create(createUserDto);
   }
 
   @Redirect('https://blog.hyositive.com', 301)
