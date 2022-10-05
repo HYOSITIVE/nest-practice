@@ -35,6 +35,13 @@ export class UsersService {
     );
   }
 
+  async verifyEmail(signupVerifyToken: string): Promise<string> {
+    // TODO
+    // 1. DB에서 signupVerifyToken으로 회원 가입 처리중인 유저가 있는지 조회하고 없으면 에러
+    // 2. 바로 로그인 상태가 되도록 JWT를 발급
+    throw new Error('Method not implemented.');
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
