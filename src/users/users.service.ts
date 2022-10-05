@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as uuid from 'uuid';
 import { EmailService } from 'src/email/email.service';
+import { UserInfo } from './UserInfo';
 
 @Injectable() // Injectable 데코레이터 사용 해 프로바이더로 지정
 export class UsersService {
@@ -40,6 +41,20 @@ export class UsersService {
     // 1. DB에서 signupVerifyToken으로 회원 가입 처리중인 유저가 있는지 조회하고 없으면 에러
     // 2. 바로 로그인 상태가 되도록 JWT를 발급
     throw new Error('Method not implemented.');
+  }
+
+  async login(email: string, password: string): Promise<string> {
+    // TODO
+    // 1. email, password를 가진 유저가 존재하는지 DB에서 확인하고 없다면 에러 처리
+    // 2. JWT를 발급
+    throw new Error('Method not implemented.');
+  }
+
+  async getUserInfo(userId: string): Promise<UserInfo> {
+    // 1. userId를 가진 유저가 존재하는지 DB에서 확인하고 없다면 에러 처리
+    // 2. 조회된 데이터를 UserInfo 타입으로 응답
+
+    throw new Error('Method not implemented');
   }
 
   findOne(id: number) {
