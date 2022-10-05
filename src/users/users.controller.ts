@@ -5,14 +5,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UserLoginDto } from './dto/user-login.dto';
-import { UserInfo } from './user-info';
+import { UserInfo } from './UserInfo';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {} // Controller의 생성자에서 Service를 주입 받음. 객체 멤버 변수에 할당해 사용 가능
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<void> {
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<void> {
+    const { name, email, password } = createUserDto;
+    await this.usersService.createUser(name, email, password);
     console.log(createUserDto);
   }
 
@@ -66,15 +68,5 @@ export class UsersController {
     if (+id < 1) {
       throw new BadRequestException('id는 0보다 큰 값이어야 합니다.'); // 자동으로 400 에러 반환
     } else return this.usersService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
   }
 }
