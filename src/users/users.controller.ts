@@ -13,6 +13,7 @@ import {
   Header,
   Redirect,
   Query,
+  Scope,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -20,7 +21,10 @@ import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UserLoginDto } from './dto/user-login.dto';
 import { UserInfo } from './UserInfo';
 
-@Controller('users')
+@Controller({
+  path: 'users',
+  scope: Scope.DEFAULT,
+})
 export class UsersController {
   constructor(private readonly usersService: UsersService) {} // Controller의 생성자에서 Service를 주입 받음. 객체 멤버 변수에 할당해 사용 가능
 

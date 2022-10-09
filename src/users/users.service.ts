@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import * as uuid from 'uuid';
 import { EmailService } from 'src/email/email.service';
 import { UserInfo } from './UserInfo';
 
-@Injectable() // Injectable 데코레이터 사용 해 프로바이더로 지정
+@Injectable({ scope: Scope.DEFAULT }) // Injectable 데코레이터 사용 해 프로바이더로 지정
 export class UsersService {
   constructor(private emailService: EmailService) {}
 
