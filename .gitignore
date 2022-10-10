@@ -394,8 +394,5 @@ Temporary Items
 
 =======
 # Local
-.development.env
-.stage.env
-.production.env
+src/config/env
 dist
-src/email/email.service.ts
