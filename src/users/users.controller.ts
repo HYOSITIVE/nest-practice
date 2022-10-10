@@ -49,6 +49,7 @@ export class UsersController {
 
   @Get('/:id')
   async getUserInfo(@Param('id') userId: string): Promise<UserInfo> {
+    console.log(process.env.DATABASE_HOST);
     return await this.usersService.getUserInfo(userId);
   }
 
